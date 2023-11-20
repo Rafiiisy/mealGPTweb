@@ -4,22 +4,28 @@ import { ScrollView } from 'react-native-web';
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 
-const Landing = () => {
+const Landing = ({ navigation }) => {
   const handleMenuPress = () => {
     console.log("Menu button pressed"); // Replace with actual logic to open sidebar
+  };
+  const handleLoginPress = () => {
+    navigation.navigate('Login'); // Make sure 'Login' matches the name in the Stack.Navigator
+  };
+  const handleSignupPress = () => {
+    navigation.navigate('SignUp'); // Make sure 'Login' matches the name in the Stack.Navigator
   };
   return (
     <View style={styles.root}>
       <ScrollView style={styles.landing}>
         <Header onMenuPress={handleMenuPress} />
         <View style={styles.headerContainer}></View>
-        <TouchableOpacity style={styles.LoginButton}>
+        <TouchableOpacity style={styles.LoginButton} onPress={handleLoginPress}>
           <Image
             source={require('../../../assets/Log in.png')}
             style={styles.LoginImage}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.SignUpButton}>
+        <TouchableOpacity style={styles.SignUpButton} onPress={handleSignupPress}>
           <Image
             source={require('../../../assets/Sign up.png')}
             style={styles.SignUpImage}
@@ -41,9 +47,9 @@ const Landing = () => {
             style={styles.MainBody}
           />
           {/* Try Now Button */}
-          <TouchableOpacity style={styles.tryNowButton}>
+          <TouchableOpacity style={styles.tryNowButton} onPress={handleSignupPress}>
             <Image
-              source={require('../../../assets/TRY NOW.png')}
+              source={require('../../../assets/TRY NOW.png') }
               style={styles.tryNowImage}
             />
           </TouchableOpacity>
@@ -58,6 +64,7 @@ const Landing = () => {
     </View>
   );
 };
+
 
 // Example styles that might correspond to some of your CSS
 const styles = StyleSheet.create({
