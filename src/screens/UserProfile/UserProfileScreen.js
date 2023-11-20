@@ -49,16 +49,19 @@ const WorkoutPreferences = {
   restrictions: "Deadlifts",
 };
 
-const UserProfileScreen = () => {
-    const [sidebarVisible, setSidebarVisible] = useState(false);
+const UserProfileScreen = ({ navigation }) => {
+  const [sidebarVisible, setSidebarVisible] = useState(false);
   const handleMenuPress = () => {
     setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
+  };
+  const handleLogoPress = () => {
+    navigation.navigate("Home"); // Make sure 'Home' corresponds to the name of your route
   };
 
   return (
     <View style={styles.root}>
       <ScrollView style={styles.container}>
-        <Header onMenuPress={handleMenuPress} />
+        <Header onMenuPress={handleMenuPress} navigation={handleLogoPress} />
         <View style={styles.headerContainer}>
           <Image
             source={require("../../assets/images/images.jpg")} // Replace with your image path

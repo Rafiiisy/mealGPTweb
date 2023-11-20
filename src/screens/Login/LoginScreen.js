@@ -5,16 +5,19 @@ import { View, Text, TextInput, ImageBackground, TouchableOpacity, StyleSheet } 
 // import backgroundImage from '../../assets/images/Header LoginSignup.png'; // Adjust the path accordingly
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
+import Sidebar from "../../components/common/Sidebar";
 
 const LoginScreen = ({ navigation }) => {
     const [emailPhone, setEmailPhone] = useState('');
     const [password, setPassword] = useState('');
+    const [sidebarVisible, setSidebarVisible] = useState(false);
+
+    const handleMenuPress = () => {
+      setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
+    };
     const handleLogin = () => {
         // Implement your login logic here
         console.log('Login pressed');
-    };
-    const handleMenuPress = () => {
-        console.log("Menu button pressed"); // Replace with actual logic to open sidebar
     };
     const handleForgotPassword = () => {
         // Implement your logic for handling forgot password
@@ -27,52 +30,62 @@ const LoginScreen = ({ navigation }) => {
         navigation.navigate('SignUp');
     };
 
+
     return (
-        <>
-            <Header onMenuPress={handleMenuPress} />
-            <View style={styles.container}>
-            <View style={styles.container2}>
-                <Text style={styles.title}>Login</Text>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Email/phone"
-                        value={emailPhone}
-                        onChangeText={(text) => setEmailPhone(text)}
-                    />
-                </View>
-
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Password"
-                        secureTextEntry
-                        value={password}
-                        onChangeText={(text) => setPassword(text)}
-                    />
-                </View>
-
-                <View style={styles.centeredButtonContainer}>
-                    <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-                        <Text style={styles.loginButtonText}>Login</Text>
-                    </TouchableOpacity>
-                </View>
-
-
-                <Text style={styles.forgotPasswordText}>
-                    Forgot your password? <TouchableOpacity onPress={handleForgotPassword}><Text style={styles.clickHereText}>click here</Text></TouchableOpacity>
-                </Text>
-
-                <Text style={styles.signupText}>
-                    Don't have an account?{' '}
-                    <TouchableOpacity onPress={handleSignUpNavigation}>
-                        <Text style={styles.clickHereText}>make one</Text>
-                    </TouchableOpacity>
-                </Text>
+      <>
+        <Header onMenuPress={handleMenuPress} navigation={navigation} />
+        <View style={styles.container}>
+          <View style={styles.container2}>
+            <Text style={styles.title}>Login</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Email/phone"
+                value={emailPhone}
+                onChangeText={(text) => setEmailPhone(text)}
+              />
             </View>
+
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                secureTextEntry
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+              />
             </View>
-            <Footer />
-        </>
+
+            <View style={styles.centeredButtonContainer}>
+              <TouchableOpacity
+                style={styles.loginButton}
+                onPress={handleLogin}
+              >
+                <Text style={styles.loginButtonText}>Login</Text>
+              </TouchableOpacity>
+            </View>
+
+            <Text style={styles.forgotPasswordText}>
+              Forgot your password?{" "}
+              <TouchableOpacity onPress={handleForgotPassword}>
+                <Text style={styles.clickHereText}>click here</Text>
+              </TouchableOpacity>
+            </Text>
+
+            <Text style={styles.signupText}>
+              Don't have an account?{" "}
+              <TouchableOpacity onPress={handleSignUpNavigation}>
+                <Text style={styles.clickHereText}>make one</Text>
+              </TouchableOpacity>
+            </Text>
+          </View>
+        </View>
+        <Footer />
+        <Sidebar
+          isVisible={sidebarVisible}
+          onClose={() => setSidebarVisible(false)}
+        />
+      </>
     );
 };
 

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import FontAwesome from "react-native-vector-icons/FontAwesome"; // Assume you're using FontAwesome for icons
+
 
 const Sidebar = ({ isVisible, onClose }) => {
   if (!isVisible) return null; // Don't render the sidebar if it's not supposed to be visible
@@ -105,23 +105,32 @@ const styles = StyleSheet.create({
     width: 250, // Width of the sidebar
     backgroundColor: "#009934", // A fallback color if the image doesn't load
     padding: 20,
+    alignItems: "flex-start"
     // Rest of your styles
   },
   logo: {
     width: 100,
     height: 50,
-    marginBottom: 20,
+    marginBottom: 65,
+    left: 50
     // Rest of your logo styles
+  },
+  icon: {
+    width: 25, // Set the width of your icon
+    height: 25, // Set the height of your icon
+    marginRight: 10, // Add some margin between icon and text
+    // You can also add other styles such as borderRadius, etc., if needed
   },
   menuItem: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 60,
     // Rest of your menu item styles
   },
   menuItemText: {
     color: "#FFF",
     marginLeft: 10,
+    fontSize: 25
     // Rest of your menu item text styles
   },
   closeButton: {
@@ -132,6 +141,7 @@ const styles = StyleSheet.create({
   closeButtonText: {
     fontSize: 24,
     color: "#FFF",
+    fontWeight: "bold"
     // ... other text styles for the 'x' button
   },
   // Rest of your styles

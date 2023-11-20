@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
+import Sidebar from "../../components/common/Sidebar";
 
 const SignUpScreen = () => {
     const [emailPhone, setEmailPhone] = useState('');
     const [password, setPassword] = useState('');
     const [reEnterPassword, setReEnterPassword] = useState('');
+    const [sidebarVisible, setSidebarVisible] = useState(false);
 
     const handleSignUp = () => {
         // Implement your signup logic here
@@ -15,54 +17,61 @@ const SignUpScreen = () => {
         // You can perform validation, compare passwords, and other signup-related logic
     };
 
-    const handleMenuPress = () => {
-        console.log("Menu button pressed"); // Replace with actual logic to open sidebar
-    };
+   const handleMenuPress = () => {
+     setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
+   };
 
     return (
-        <>
-            <Header onMenuPress={handleMenuPress} />
-            <View style={styles.container}>
-                <View style={styles.container2}>
-                    <Text style={styles.title}>Sign Up</Text>
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Email/phone"
-                            value={emailPhone}
-                            onChangeText={(text) => setEmailPhone(text)}
-                        />
-                    </View>
-
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Password"
-                            secureTextEntry
-                            value={password}
-                            onChangeText={(text) => setPassword(text)}
-                        />
-                    </View>
-
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Re-enter Password"
-                            secureTextEntry
-                            value={reEnterPassword}
-                            onChangeText={(text) => setReEnterPassword(text)}
-                        />
-                    </View>
-
-                    <View style={styles.centeredButtonContainer}>
-                        <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
-                            <Text style={styles.signUpButtonText}>Sign Up</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+      <>
+        <Header onMenuPress={handleMenuPress} navigation={navigation} />
+        <View style={styles.container}>
+          <View style={styles.container2}>
+            <Text style={styles.title}>Sign Up</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Email/phone"
+                value={emailPhone}
+                onChangeText={(text) => setEmailPhone(text)}
+              />
             </View>
-            <Footer />
-        </>
+
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                secureTextEntry
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Re-enter Password"
+                secureTextEntry
+                value={reEnterPassword}
+                onChangeText={(text) => setReEnterPassword(text)}
+              />
+            </View>
+
+            <View style={styles.centeredButtonContainer}>
+              <TouchableOpacity
+                style={styles.signUpButton}
+                onPress={handleSignUp}
+              >
+                <Text style={styles.signUpButtonText}>Sign Up</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        <Footer />
+        <Sidebar
+          isVisible={sidebarVisible}
+          onClose={() => setSidebarVisible(false)}
+        />
+      </>
     );
 };
 
