@@ -1,8 +1,10 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { useState } from "react";
 import styles from "./UserProfileStyles"; // Importing styles from styles.js
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer"; // Import Footer component
+import Sidebar from "../../components/common/Sidebar";
 
 const UserDetails = {
   age: "20",
@@ -48,8 +50,9 @@ const WorkoutPreferences = {
 };
 
 const UserProfileScreen = () => {
+    const [sidebarVisible, setSidebarVisible] = useState(false);
   const handleMenuPress = () => {
-    console.log("Menu button pressed"); // Replace with actual logic to open sidebar
+    setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
   };
 
   return (
@@ -109,8 +112,17 @@ const UserProfileScreen = () => {
             ))}
           </View>
         </View>
-        <Footer />
+        <View style={{ height: 100 }}>
+          {" "}
+          {/* Adjust height as needed */}
+          {/* You can put additional content here or leave it empty */}
+        </View>
       </ScrollView>
+      <Footer />
+      <Sidebar
+        isVisible={sidebarVisible}
+        onClose={() => setSidebarVisible(false)}
+      />
     </View>
   );
 };
