@@ -52,7 +52,7 @@ const HomeScreen = ({ navigation }) => {
           style={styles.lineUnderHeader}
         />
         {/* ... Other Images and Text */}
-        <View>
+        <View style={styles.container2}>
           <Image
             source={require("../../assets/Group 11.png")}
             style={styles.MainBody}
@@ -106,6 +106,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
   },
+  container2: {
+    backgroundColor: "transparent",
+    marginHorizontal: 40
+  },
   tableWithBowls: {
     width: "100%",
     top: 30 * 1.1,
@@ -121,6 +125,7 @@ const styles = StyleSheet.create({
   tryNowImage: {
     width: 241 * 0.6,
     height: 77 * 0.6,
+    left: 250
   },
   textWrapper: {
     fontSize: 30,

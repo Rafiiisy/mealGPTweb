@@ -54,14 +54,12 @@ const UserProfileScreen = ({ navigation }) => {
   const handleMenuPress = () => {
     setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
   };
-  const handleLogoPress = () => {
-    navigation.navigate("Home"); // Make sure 'Home' corresponds to the name of your route
-  };
+
 
   return (
     <View style={styles.root}>
       <ScrollView style={styles.container}>
-        <Header onMenuPress={handleMenuPress} navigation={handleLogoPress} />
+        <Header onMenuPress={handleMenuPress} navigation={navigation} />
         <View style={styles.headerContainer}>
           <Image
             source={require("../../assets/images/images.jpg")} // Replace with your image path
