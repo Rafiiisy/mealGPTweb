@@ -6,7 +6,7 @@ import backgroundImage from '../../assets/images/Header LoginSignup.png'; // Adj
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
     const [emailPhone, setEmailPhone] = useState('');
     const [password, setPassword] = useState('');
     const handleLogin = () => {
@@ -16,11 +16,22 @@ const LoginScreen = () => {
     const handleMenuPress = () => {
         console.log("Menu button pressed"); // Replace with actual logic to open sidebar
     };
+    const handleForgotPassword = () => {
+        // Implement your logic for handling forgot password
+        console.log('Forgot Password pressed');
+        // You can open a link or navigate to a new screen
+        // For example, opening a URL:
+        Linking.openURL('https://example.com/forgot-password');
+    };
+    const handleSignUpNavigation = () => {
+        navigation.navigate('SignUp');
+    };
 
     return (
         <>
             <Header onMenuPress={handleMenuPress} />
             <View style={styles.container}>
+            <View style={styles.container2}>
                 <Text style={styles.title}>Login</Text>
                 <View style={styles.inputContainer}>
                     <TextInput
@@ -46,8 +57,21 @@ const LoginScreen = () => {
                         <Text style={styles.loginButtonText}>Login</Text>
                     </TouchableOpacity>
                 </View>
-                <Footer />
+
+
+                <Text style={styles.forgotPasswordText}>
+                    Forgot your password? <TouchableOpacity onPress={handleForgotPassword}><Text style={styles.clickHereText}>click here</Text></TouchableOpacity>
+                </Text>
+
+                <Text style={styles.signupText}>
+                    Don't have an account?{' '}
+                    <TouchableOpacity onPress={handleSignUpNavigation}>
+                        <Text style={styles.clickHereText}>make one</Text>
+                    </TouchableOpacity>
+                </Text>
             </View>
+            </View>
+            <Footer />
         </>
     );
 };
@@ -59,6 +83,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 20,
     },
+    container2: {
+        height: '50%',
+        top: '-55%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     backgroundImage: {
         flex: 1,
         resizeMode: 'contain',
@@ -67,12 +98,12 @@ const styles = StyleSheet.create({
     title: {
         font: 'mada',
         color: 'rgb(0, 85, 29)',
-        fontSize: 24,
+        fontSize: 40,
         fontWeight: 'regular',
         marginBottom: 20,
     },
     inputContainer: {
-        width: '100%',
+        width: '170%',
         marginBottom: 20,
     },
     input: {
@@ -87,7 +118,8 @@ const styles = StyleSheet.create({
     },
     loginButton: {
         backgroundColor: 'rgb(0, 153, 52)',
-        padding: 10,
+        width: 100,
+        padding: 8,
         borderRadius: 50,
     },
     loginButtonText: {
@@ -95,6 +127,22 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
     },
+    forgotPasswordText: {
+        color: 'black',
+        textDecorationLine: 'none',
+        textAlign: 'center',
+        marginTop: 10,
+    },
+    clickHereText: {
+        color: 'rgb(0, 153, 52)',
+        textDecorationLine: 'underline',
+    },
+    signupText: {
+        color: 'black',
+        marginTop: 10,
+        textAlign: 'center',
+    },
+
 });
 
 export default LoginScreen;
