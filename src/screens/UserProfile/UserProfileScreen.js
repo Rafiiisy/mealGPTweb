@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import styles from "./UserProfileStyles"; // Importing styles from styles.js
 import Header from "../../components/common/Header";
+import Footer from "../../components/common/Footer"; // Import Footer component
 
 const UserDetails = {
   age: "20",
@@ -52,62 +53,65 @@ const UserProfileScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Header onMenuPress={handleMenuPress} />
-      <View style={styles.headerContainer}>
-        <Image
-          source={require("../../assets/images/images.jpg")} // Replace with your image path
-          style={styles.profilePic}
-        />
-        <View style={styles.userInfo}>
-          <Text style={styles.name}>Joe Biden</Text>
-          <Text style={styles.title}>President</Text>
-          <Text style={styles.email}>joebident@gmail.com</Text>
-          <Text style={styles.phone}>(+1)12345678</Text>
-        </View>
-
-        <View style={styles.statsContainer}>
-          <View style={styles.statItem}>
-            <Text style={styles.statLabel}>Diet</Text>
-            <Text style={styles.statValue}>69%</Text>
+    <View style={styles.root}>
+      <ScrollView style={styles.container}>
+        <Header onMenuPress={handleMenuPress} />
+        <View style={styles.headerContainer}>
+          <Image
+            source={require("../../assets/images/images.jpg")} // Replace with your image path
+            style={styles.profilePic}
+          />
+          <View style={styles.userInfo}>
+            <Text style={styles.name}>Joe Biden</Text>
+            <Text style={styles.title}>President</Text>
+            <Text style={styles.email}>joebident@gmail.com</Text>
+            <Text style={styles.phone}>(+1)12345678</Text>
           </View>
-          <View style={styles.divider} />
-          <View style={styles.statItem}>
-            <Text style={styles.statLabel}>Workout</Text>
-            <Text style={styles.statValue}>42%</Text>
+
+          <View style={styles.statsContainer}>
+            <View style={styles.statItem}>
+              <Text style={styles.statLabel}>Diet</Text>
+              <Text style={styles.statValue}>69%</Text>
+            </View>
+            <View style={styles.divider} />
+            <View style={styles.statItem}>
+              <Text style={styles.statLabel}>Workout</Text>
+              <Text style={styles.statValue}>42%</Text>
+            </View>
           </View>
         </View>
-      </View>
-      <Text style={styles.sectionTitle}>Joe's Preferences</Text>
-      <View style={styles.sectionContainer}>
-        <View style={styles.preferenceCategory}>
-          <Text style={styles.categoryTitle}>User Details</Text>
-          {Object.entries(UserDetails).map(([key, value]) => (
-            <Text key={key} style={styles.detailText}>
-              {`${key.replace(/([A-Z])/g, " $1")}: ${value}`}
-            </Text>
-          ))}
-        </View>
+        <Text style={styles.sectionTitle}>Joe's Preferences</Text>
+        <View style={styles.sectionContainer}>
+          <View style={styles.preferenceCategory}>
+            <Text style={styles.categoryTitle}>User Details</Text>
+            {Object.entries(UserDetails).map(([key, value]) => (
+              <Text key={key} style={styles.detailText}>
+                {`${key.replace(/([A-Z])/g, " $1")}: ${value}`}
+              </Text>
+            ))}
+          </View>
 
-        <View style={styles.preferenceCategory}>
-          <Text style={styles.categoryTitle}>Meal Preferences</Text>
-          {Object.entries(MealPreferences).map(([key, value]) => (
-            <Text key={key} style={styles.detailText}>
-              {`${key.replace(/([A-Z])/g, " $1")}: ${value}`}
-            </Text>
-          ))}
-        </View>
+          <View style={styles.preferenceCategory}>
+            <Text style={styles.categoryTitle}>Meal Preferences</Text>
+            {Object.entries(MealPreferences).map(([key, value]) => (
+              <Text key={key} style={styles.detailText}>
+                {`${key.replace(/([A-Z])/g, " $1")}: ${value}`}
+              </Text>
+            ))}
+          </View>
 
-        <View style={styles.preferenceCategory}>
-          <Text style={styles.categoryTitle}>Workout Preferences</Text>
-          {Object.entries(WorkoutPreferences).map(([key, value]) => (
-            <Text key={key} style={styles.detailText}>
-              {`${key.replace(/([A-Z])/g, " $1")}: ${value}`}
-            </Text>
-          ))}
+          <View style={styles.preferenceCategory}>
+            <Text style={styles.categoryTitle}>Workout Preferences</Text>
+            {Object.entries(WorkoutPreferences).map(([key, value]) => (
+              <Text key={key} style={styles.detailText}>
+                {`${key.replace(/([A-Z])/g, " $1")}: ${value}`}
+              </Text>
+            ))}
+          </View>
         </View>
-      </View>
-    </ScrollView>
+        <Footer />
+      </ScrollView>
+    </View>
   );
 };
 

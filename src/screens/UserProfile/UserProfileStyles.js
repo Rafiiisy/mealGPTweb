@@ -12,6 +12,10 @@ const styles = StyleSheet.create({
     marginVertical: 70,
     borderRadius: 25,
   },
+  root: {
+    flex: 1, // Use flex to fill the screen
+    justifyContent: 'space-between', // Push content to the top and footer to the bottom
+  },
   profilePic: {
     backgroundColor: "transparent",
     width: 100,
