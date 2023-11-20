@@ -68,6 +68,7 @@ const SignUpScreen = () => {
         </View>
         <Footer />
         <Sidebar
+          navigation={navigation}
           isVisible={sidebarVisible}
           onClose={() => setSidebarVisible(false)}
         />

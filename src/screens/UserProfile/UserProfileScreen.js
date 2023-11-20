@@ -123,6 +123,7 @@ const UserProfileScreen = ({ navigation }) => {
       </ScrollView>
       <Footer />
       <Sidebar
+        navigation={navigation}
         isVisible={sidebarVisible}
         onClose={() => setSidebarVisible(false)}
       />

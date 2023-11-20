@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 
-const Sidebar = ({ isVisible, onClose }) => {
+const Sidebar = ({ isVisible, onClose, navigation }) => {
   if (!isVisible) return null; // Don't render the sidebar if it's not supposed to be visible
 
   return (
@@ -28,8 +28,11 @@ const Sidebar = ({ isVisible, onClose }) => {
       {/* Menu items */}
       {/*Profile */}
       <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("UserProfile"); // Navigate to UserProfileScreen
+          onClose(); // Close the sidebar
+        }}
         style={styles.menuItem}
-        onPress={() => console.log("Profile clicked")}
       >
         <Image
           source={require("../../assets/icons/icon-profile.png")} // Replace with the path to your profile icon
@@ -39,8 +42,11 @@ const Sidebar = ({ isVisible, onClose }) => {
       </TouchableOpacity>
       {/*Dashboard */}
       <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Dashboard"); // Navigate to UserProfileScreen
+          onClose(); // Close the sidebar
+        }}
         style={styles.menuItem}
-        onPress={() => console.log("Dashboard clicked")}
       >
         <Image
           source={require("../../assets/icons/icon-dashboard.png")} // Replace with the path to your profile icon
@@ -50,30 +56,39 @@ const Sidebar = ({ isVisible, onClose }) => {
       </TouchableOpacity>
       {/*Meal Plan */}
       <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("MealPlan"); // Navigate to UserProfileScreen
+          onClose(); // Close the sidebar
+        }}
         style={styles.menuItem}
-        onPress={() => console.log("Meal Plan clicked")}
       >
         <Image
           source={require("../../assets/icons/icon-apple.png")} // Replace with the path to your profile icon
           style={styles.icon}
         />
-        <Text style={styles.menuItemText}>Dashboard</Text>
+        <Text style={styles.menuItemText}>Meal Plan</Text>
       </TouchableOpacity>
       {/*Workout Plan */}
       <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("WorkoutPlan"); // Navigate to UserProfileScreen
+          onClose(); // Close the sidebar
+        }}
         style={styles.menuItem}
-        onPress={() => console.log("Workout Plan clicked")}
       >
         <Image
           source={require("../../assets/icons/icon-gym.png")} // Replace with the path to your profile icon
-          style={styles.icon}
+          style={styles.icon3}
         />
         <Text style={styles.menuItemText}>Workout Plan</Text>
       </TouchableOpacity>
       {/*FAQ */}
       <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("FAQ"); // Navigate to UserProfileScreen
+          onClose(); // Close the sidebar
+        }}
         style={styles.menuItem}
-        onPress={() => console.log("FAQ clicked")}
       >
         <Image
           source={require("../../assets/icons/icon-faq.png")} // Replace with the path to your profile icon
@@ -83,14 +98,31 @@ const Sidebar = ({ isVisible, onClose }) => {
       </TouchableOpacity>
       {/*Settings */}
       <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Settings"); // Navigate to UserProfileScreen
+          onClose(); // Close the sidebar
+        }}
         style={styles.menuItem}
-        onPress={() => console.log("Settings clicked")}
       >
         <Image
           source={require("../../assets/icons/icon-setting.png")} // Replace with the path to your profile icon
           style={styles.icon}
         />
         <Text style={styles.menuItemText}>Settings</Text>
+      </TouchableOpacity>
+      {/*Logout */}
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Home"); // Navigate to UserProfileScreen
+          onClose(); // Close the sidebar
+        }}
+        style={styles.menuItem}
+      >
+        <Image
+          source={require("../../assets/icons/icon-logout.png")} // Replace with the path to your profile icon
+          style={styles.icon2}
+        />
+        <Text style={styles.menuItemText}>Log out</Text>
       </TouchableOpacity>
     </ImageBackground>
   );
@@ -105,32 +137,48 @@ const styles = StyleSheet.create({
     width: 250, // Width of the sidebar
     backgroundColor: "#009934", // A fallback color if the image doesn't load
     padding: 20,
-    alignItems: "flex-start"
+    alignItems: "flex-start",
     // Rest of your styles
   },
   logo: {
     width: 100,
     height: 50,
     marginBottom: 65,
-    left: 50
+    left: 50,
     // Rest of your logo styles
   },
   icon: {
+    left: 10,
     width: 25, // Set the width of your icon
     height: 25, // Set the height of your icon
-    marginRight: 10, // Add some margin between icon and text
+    marginRight: 0, // Add some margin between icon and text
+    // You can also add other styles such as borderRadius, etc., if needed
+  },
+  icon2: {
+    left: 10,
+    width: 23, // Set the width of your icon
+    height: 28, // Set the height of your icon
+    marginRight: 0, // Add some margin between icon and text
+    // You can also add other styles such as borderRadius, etc., if needed
+  },
+  icon3: {
+    left: 10,
+    width: 23, // Set the width of your icon
+    height: 15, // Set the height of your icon
+    marginRight: 0, // Add some margin between icon and text
     // You can also add other styles such as borderRadius, etc., if needed
   },
   menuItem: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 60,
+    marginBottom: 35,
     // Rest of your menu item styles
   },
   menuItemText: {
+    Top: 0,
     color: "#FFF",
-    marginLeft: 10,
-    fontSize: 25
+    marginLeft: 40,
+    fontSize: 25,
     // Rest of your menu item text styles
   },
   closeButton: {
@@ -141,7 +189,7 @@ const styles = StyleSheet.create({
   closeButtonText: {
     fontSize: 24,
     color: "#FFF",
-    fontWeight: "bold"
+    fontWeight: "bold",
     // ... other text styles for the 'x' button
   },
   // Rest of your styles

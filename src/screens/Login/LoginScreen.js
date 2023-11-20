@@ -82,6 +82,7 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <Footer />
         <Sidebar
+          navigation={navigation}
           isVisible={sidebarVisible}
           onClose={() => setSidebarVisible(false)}
         />
