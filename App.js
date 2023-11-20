@@ -4,7 +4,7 @@ import UserProfileScreen from "./src/screens/UserProfile/UserProfileScreen";
 import Header from "./src/components/common/Header"
 const App = () => {
   return <HomeScreen />;
-  // return <Header />;
+  // return <UserProfileScreen />;
 };
 
 export default App;
