@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
     flexDirection: "row", // Row direction for items
   },
   root: {
-    flex: 1, // Set the width according to your logo's aspect ratio // Set the height according to your logo's aspect ratio
+    zIndex: 1,
+    // flex: 1, // Set the width according to your logo's aspect ratio // Set the height according to your logo's aspect ratio
   },
   container: {
     flex: 1,
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     top: 40, // Set the width according to your logo's aspect ratio // Set the height according to your logo's aspect ratio
   },
   logoContainer: {
-    flex:1
+    flex: 1,
   },
   logo: {
     width: 150, // Set the width according to your logo's aspect ratio

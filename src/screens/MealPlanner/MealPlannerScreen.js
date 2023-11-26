@@ -1,43 +1,50 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TextInput,
-  SafeAreaView,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { useState } from "react";
+import { View, Image } from "react-native";
 
-import styles from "../MealPlanner/MealPlannerStyle";
+import styles from "./MealPlannerStyle";
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
-const MealPlannerScreen = () => {
+import Sidebar from "../../components/common/Sidebar";
+import { ScrollView } from "react-native-web";
+
+const MealPlannerScreen = ({navigation}) => {
+  const [sidebarVisible, setSidebarVisible] = useState(false);
+
+
+  const handleMenuPress = () => {
+      setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
+    };
+
   return (
-    <View>
-      <Header />
-      <View style={styles.containerButton}>
-        <Image
-          source={require("../../../assets/ocupied1.png")}
-          style={styles.imageSize}
-        />
-      </View>
-
-      <View style={styles.containerButton}>
-        <Image
-          source={require("../../../assets/ocupied2.png")}
-          style={styles.imageSize}
-        />
-      </View>
-
-      <View style={styles.containerButton}>
-        <Image
-          source={require("../../../assets/Empty.png")}
-          style={styles.imageSize}
-        />
-      </View>
+    <View style={styles.root}>
+      <Header onMenuPress={handleMenuPress} navigation={navigation} />
+      <ScrollView style={styles.mainContainer}>
+        <View style={styles.containerButton}>
+          <Image
+            source={require("../../assets/Occupied 1.png")}
+            style={styles.imageSize}
+          />
+        </View>
+        <View style={styles.containerButton}>
+          <Image
+            source={require("../../assets/Occupied 2.png")}
+            style={styles.imageSize}
+          />
+        </View>
+        <View style={styles.containerButton}>
+          <Image
+            source={require("../../assets/Empty space.png")}
+            style={styles.imageSize}
+          />
+        </View>
+      </ScrollView>
       <Footer />
+      <Sidebar
+        navigation={navigation}
+        isVisible={sidebarVisible}
+        onClose={() => setSidebarVisible(false)}
+      />
     </View>
   );
 };

@@ -2,15 +2,15 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   //white box to hold user details
-  headerContainer: {
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "space-around",
-    flexDirection: "row",
-    padding: 40,
-    marginHorizontal: 100,
-    marginVertical: 70,
-    borderRadius: 25,
+  root: {
+    flex: 1,
+    backgroundColor: "transparent",
+  },
+  mainContainer: {
+    flex: 1,
+    // backgroundColor: "red",
+    bottom: 300,
+    height: "100%"
   },
   profilePic: {
     backgroundColor: "transparent",

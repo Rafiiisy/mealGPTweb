@@ -17,7 +17,8 @@ const LoginScreen = ({ navigation }) => {
     };
     const handleLogin = () => {
         // Implement your login logic here
-        console.log('Login pressed');
+        
+        navigation.navigate("UserPreference");
     };
     const handleForgotPassword = () => {
         // Implement your logic for handling forgot password

@@ -39,7 +39,7 @@ const Footer = () => {
 
 const styles = StyleSheet.create({
   footerContainer: {
-    position: "absolute",
+    // position: "absolute",
     left: 0,
     bottom: 0,
     right: 0,

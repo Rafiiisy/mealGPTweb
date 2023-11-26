@@ -1,0 +1,41 @@
+User Details 
+  age (input: number)
+  sex: (input: Male/Female)
+  weight in kg: (input: number)
+  height in cm: (input: number)
+  nationality: (input: Text)
+  location: (input: Text)
+  fat Percentage: (input: Text)
+  health Concerns: (input: Text)
+  daily Activity Level: (input: Text)
+  fitness Goals: (input: Text)
+  alcohol Consumption: (input: Text)
+  sleep: (input: Text)
+};
+
+next column, with title Meal Preferences
+  dietary Restrictions: (input: Text)
+  allergies: (input: Text)
+  mealFrequency: (input: number)
+  snacks: (input: Text)
+  caloricGoal:  (input: number)
+  buyFood: (input: Yes/No)
+  budget: (input: Text)
+  cook: (input: Yes/No)
+  cookingTime:  (input: number)
+  cookingLevel:  (input: number)
+  cuisinePreference: (input: Text)
+};
+
+next column, with title Workout Preferences
+  gym Access: (input: Yes/No)
+  aerobics: (input: Yes/No)
+  calisthenics: (input: Yes/No)
+  equipment: (input: Yes/No)
+  sports: (input: Text)
+  workout Frequency: (input: Number)
+  preferred Time: (input: Text)
+  experience: (input: Number)
+  duration: (input: Number)
+  goal: (input: Text)
+  restrictions: (input: Text)
