@@ -3,66 +3,99 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
+import Sidebar from "../../components/common/Sidebar";
+
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {auth} from '../../config/firebaseConfig';
 
 const SignUpScreen = () => {
     const [emailPhone, setEmailPhone] = useState('');
     const [password, setPassword] = useState('');
     const [reEnterPassword, setReEnterPassword] = useState('');
+    const [sidebarVisible, setSidebarVisible] = useState(false);
 
-    const handleSignUp = () => {
-        // Implement your signup logic here
-        console.log('Sign Up pressed');
-        // You can perform validation, compare passwords, and other signup-related logic
+    const register = async () => {
+      if (password !== reEnterPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+      try {
+        await createUserWithEmailAndPassword(auth, emailPhone, password);
+        // Navigate to the home screen or show success message
+      } catch (error) {
+        alert(error.message); // Or handle the error in a more user-friendly way
+        console.log(error.message);
+      }
+    };
+    
+    const emailHandler = (newText) => {
+      setEmailPhone(newText);
+    };
+  
+    const passwordHandler = (newText) => {
+      setPassword(newText);
+    };
+  
+    const confirmPasswordHandler = (newText) => {
+      setReEnterPassword(newText);
     };
 
-    const handleMenuPress = () => {
-        console.log("Menu button pressed"); // Replace with actual logic to open sidebar
-    };
+   const handleMenuPress = () => {
+     setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
+   };
 
     return (
-        <>
-            <Header onMenuPress={handleMenuPress} />
-            <View style={styles.container}>
-                <View style={styles.container2}>
-                    <Text style={styles.title}>Sign Up</Text>
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Email/phone"
-                            value={emailPhone}
-                            onChangeText={(text) => setEmailPhone(text)}
-                        />
-                    </View>
-
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Password"
-                            secureTextEntry
-                            value={password}
-                            onChangeText={(text) => setPassword(text)}
-                        />
-                    </View>
-
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Re-enter Password"
-                            secureTextEntry
-                            value={reEnterPassword}
-                            onChangeText={(text) => setReEnterPassword(text)}
-                        />
-                    </View>
-
-                    <View style={styles.centeredButtonContainer}>
-                        <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
-                            <Text style={styles.signUpButtonText}>Sign Up</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+      <>
+        <Header onMenuPress={handleMenuPress} navigation={navigation} />
+        <View style={styles.container}>
+          <View style={styles.container2}>
+            <Text style={styles.title}>Sign Up</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Email/phone"
+                value={emailPhone}
+                onChangeText={emailHandler}
+              />
             </View>
-            <Footer />
-        </>
+
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                secureTextEntry
+                value={password}
+                onChangeText={passwordHandler}
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Re-enter Password"
+                secureTextEntry
+                value={reEnterPassword}
+                onChangeText={confirmPasswordHandler}
+              />
+            </View>
+
+            <View style={styles.centeredButtonContainer}>
+              <TouchableOpacity
+                style={styles.signUpButton}
+                onPress={register}
+              >
+                <Text style={styles.signUpButtonText}>Sign Up</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        <Footer />
+        <Sidebar
+          navigation={navigation}
+          isVisible={sidebarVisible}
+          onClose={() => setSidebarVisible(false)}
+        />
+      </>
     );
 };
 

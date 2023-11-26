@@ -1,0 +1,21 @@
+[debug] [2023-11-26T10:29:05.059Z] ----------------------------------------------------------------------
+[debug] [2023-11-26T10:29:05.062Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2023-11-26T10:29:05.063Z] CLI Version:   12.9.1
+[debug] [2023-11-26T10:29:05.063Z] Platform:      win32
+[debug] [2023-11-26T10:29:05.063Z] Node Version:  v16.17.1
+[debug] [2023-11-26T10:29:05.065Z] Time:          Sun Nov 26 2023 17:29:05 GMT+0700 (Western Indonesia Time)
+[debug] [2023-11-26T10:29:05.065Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-11-26T10:29:05.077Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-11-26T10:29:05.078Z] > authorizing via signed-in user (muhammad.alf2003@mail.ugm.ac.id)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\hp\Documents\UGM\CS\SEMESTER 5\PRPL\MealGPT Repo\mealGPTweb
+
