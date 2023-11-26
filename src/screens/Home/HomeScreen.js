@@ -24,24 +24,20 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.root}>
+      <Header onMenuPress={handleMenuPress} navigation={navigation} />
+      <TouchableOpacity style={styles.LoginButton} onPress={handleLoginPress}>
+        <Image
+          source={require("../../assets/Log in.png")}
+          style={styles.LoginImage}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.SignUpButton} onPress={handleSignupPress}>
+        <Image
+          source={require("../../assets/Sign up.png")}
+          style={styles.SignUpImage}
+        />
+      </TouchableOpacity>
       <ScrollView style={styles.landing}>
-        <Header onMenuPress={handleMenuPress} navigation={navigation} />
-        <View style={styles.headerContainer}></View>
-        <TouchableOpacity style={styles.LoginButton} onPress={handleLoginPress}>
-          <Image
-            source={require("../../assets/Log in.png")}
-            style={styles.LoginImage}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.SignUpButton}
-          onPress={handleSignupPress}
-        >
-          <Image
-            source={require("../../assets/Sign up.png")}
-            style={styles.SignUpImage}
-          />
-        </TouchableOpacity>
         {/* Main Content */}
         <Image
           source={require("../../assets/MOTO & TABLE.png")}
@@ -108,7 +104,7 @@ const styles = StyleSheet.create({
   },
   container2: {
     backgroundColor: "transparent",
-    marginHorizontal: 40
+    marginHorizontal: 40,
   },
   tableWithBowls: {
     width: "100%",
@@ -125,7 +121,7 @@ const styles = StyleSheet.create({
   tryNowImage: {
     width: 241 * 0.6,
     height: 77 * 0.6,
-    left: 250
+    left: 250,
   },
   textWrapper: {
     fontSize: 30,
@@ -151,6 +147,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 60,
     left: 160,
+    zIndex: 1,
   },
   LoginImage: {
     width: 140,
@@ -161,6 +158,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 60,
     left: 312,
+    zIndex: 1,
   },
   SignUpImage: {
     width: 140,

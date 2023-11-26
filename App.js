@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="FaceToBMI">
+      <Stack.Navigator initialRouteName="MealPlan">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="UserProfile" component={UserProfileScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />

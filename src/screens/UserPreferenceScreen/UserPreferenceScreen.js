@@ -12,6 +12,7 @@ import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import Sidebar from "../../components/common/Sidebar";
 
+
 const UserPreferenceScreen = () => {
   // Example of state declaration for age. Add similar states for other fields.
   const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -113,27 +114,25 @@ const UserPreferenceScreen = () => {
             onChangeText={setAge}
           />
 
+          <Text style={styles.inputTitle}>Daily Activity</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your Health Concerns"
+            keyboardType="numeric"
+            value={nationality}
+            onChangeText={setAge}
+          />
+
+          <Text style={styles.inputTitle}>Fitness Goals</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your Health Concerns"
+            keyboardType="numeric"
+            value={nationality}
+            onChangeText={setAge}
+          />
+
           {/* Add other input fields for User Details... */}
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Meal Preferences</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Dietary Restrictions"
-            // value and onChangeText...
-          />
-          {/* Add other input fields for Meal Preferences... */}
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Workout Preferences</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Gym Access"
-            // value and onChangeText...
-          />
-          {/* Add other input fields for Workout Preferences... */}
         </View>
 
         <Button title="Submit" onPress={handleSubmit} />

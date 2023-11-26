@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#009934", // A fallback color if the image doesn't load
     padding: 20,
     alignItems: "flex-start",
+    zIndex: 1
     // Rest of your styles
   },
   logo: {

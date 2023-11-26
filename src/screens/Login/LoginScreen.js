@@ -82,11 +82,11 @@ const LoginScreen = ({ navigation }) => {
           </View>
         </View>
         <Footer />
-        <Sidebar
+        {/* <Sidebar
           navigation={navigation}
           isVisible={sidebarVisible}
           onClose={() => setSidebarVisible(false)}
-        />
+        /> */}
       </>
     );
 };
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     },
     container2: {
         height: '50%',
-        top: '-55%',
+
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',

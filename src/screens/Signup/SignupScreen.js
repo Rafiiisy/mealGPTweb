@@ -6,74 +6,74 @@ import Footer from "../../components/common/Footer";
 import Sidebar from "../../components/common/Sidebar";
 
 const SignUpScreen = () => {
-    const [emailPhone, setEmailPhone] = useState('');
-    const [password, setPassword] = useState('');
-    const [reEnterPassword, setReEnterPassword] = useState('');
-    const [sidebarVisible, setSidebarVisible] = useState(false);
+  const [emailPhone, setEmailPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [reEnterPassword, setReEnterPassword] = useState("");
+  const [sidebarVisible, setSidebarVisible] = useState(false);
 
-    const handleSignUp = () => {
-        // Implement your signup logic here
-        console.log('Sign Up pressed');
-        // You can perform validation, compare passwords, and other signup-related logic
-    };
+  const handleSignUp = () => {
+    // Implement your signup logic here
+    console.log("Sign Up pressed");
+    // You can perform validation, compare passwords, and other signup-related logic
+  };
 
-   const handleMenuPress = () => {
-     setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
-   };
+  const handleMenuPress = () => {
+    setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
+  };
 
-    return (
-      <>
-        <Header onMenuPress={handleMenuPress} navigation={navigation} />
-        <View style={styles.container}>
-          <View style={styles.container2}>
-            <Text style={styles.title}>Sign Up</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Email/phone"
-                value={emailPhone}
-                onChangeText={(text) => setEmailPhone(text)}
-              />
-            </View>
+  return (
+    <>
+      <Header onMenuPress={handleMenuPress} navigation={navigation} />
+      <View style={styles.container}>
+        <View style={styles.container2}>
+          <Text style={styles.title}>Sign Up</Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email/phone"
+              value={emailPhone}
+              onChangeText={(text) => setEmailPhone(text)}
+            />
+          </View>
 
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Password"
-                secureTextEntry
-                value={password}
-                onChangeText={(text) => setPassword(text)}
-              />
-            </View>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              secureTextEntry
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+            />
+          </View>
 
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Re-enter Password"
-                secureTextEntry
-                value={reEnterPassword}
-                onChangeText={(text) => setReEnterPassword(text)}
-              />
-            </View>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Re-enter Password"
+              secureTextEntry
+              value={reEnterPassword}
+              onChangeText={(text) => setReEnterPassword(text)}
+            />
+          </View>
 
-            <View style={styles.centeredButtonContainer}>
-              <TouchableOpacity
-                style={styles.signUpButton}
-                onPress={handleSignUp}
-              >
-                <Text style={styles.signUpButtonText}>Sign Up</Text>
-              </TouchableOpacity>
-            </View>
+          <View style={styles.centeredButtonContainer}>
+            <TouchableOpacity
+              style={styles.signUpButton}
+              onPress={handleSignUp}
+            >
+              <Text style={styles.signUpButtonText}>Sign Up</Text>
+            </TouchableOpacity>
           </View>
         </View>
-        <Footer />
-        <Sidebar
-          navigation={navigation}
-          isVisible={sidebarVisible}
-          onClose={() => setSidebarVisible(false)}
-        />
-      </>
-    );
+      </View>
+      <Footer />
+      {/* <Sidebar
+        navigation={navigation}
+        isVisible={sidebarVisible}
+        onClose={() => setSidebarVisible(false)}
+      /> */}
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     },
     container2: {
         height: '50%',
-        top: '-55%',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',

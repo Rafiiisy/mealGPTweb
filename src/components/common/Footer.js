@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowColor: "#000",
     shadowOffset: { height: 2, width: 0 },
-    height: 65, // You may want to adjust this if you need more vertical space
+    height: 65,
+    zIndex: 1 // You may want to adjust this if you need more vertical space
   },
 
   universityText: {

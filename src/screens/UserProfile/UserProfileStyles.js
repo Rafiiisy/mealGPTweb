@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
+
+
 const styles = StyleSheet.create({
   //white box to hold user details
   headerContainer: {

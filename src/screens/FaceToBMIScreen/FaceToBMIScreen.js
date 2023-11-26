@@ -1,8 +1,15 @@
 import React, { useState,useEffect, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import { Camera } from "expo-camera";
 import Icon from 'react-native-vector-icons/MaterialIcons'; // Import the icon component
-import * as FileSystem from "expo-file-system";
+
 
 const FaceToBMIScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -19,50 +26,26 @@ const FaceToBMIScreen = () => {
     })();
   }, []);
 
-  const handleTakePicture = async () => {
-    if (cameraRef.current) {
-      setIsProcessing(true);
-      const photo = await cameraRef.current.takePictureAsync();
-      
+ const handleTakePicture = async () => {
+   if (cameraRef.current) {
+     setIsProcessing(true);
+     const photo = await cameraRef.current.takePictureAsync();
 
-    // Save the captured image to a file
-    const imageUri = `./photo.jpg`;
-    await FileSystem.moveAsync({
-      from: photo.uri,
-      to: imageUri,
-    }
-    
-    )
-    console.log[photo.uri];
+     // Define the folder name
+     const folderName = "captured_images";
 
-    // // Pass the image file path to the backend
-    // const data = new FormData();
-    // data.append("image", {
-    //   uri: imageUri,
-    //   type: "image/jpeg",
-    //   name: "photo.jpg",
-    // });
+     // Generate the file name based on the current timestamp
+     const timestamp = new Date().getTime();
+     const fileName = `${timestamp}.jpg`;
 
-    // fetch("http://192.168.1.3:5000/process_image", {
-    //   method: "POST",
-    //   body: data,
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    //   })
-    //   .then((response) => response.json())
-    //   .then((responseJson) => {
-    //     setBmiResult({ value: responseJson.bmi_prediction, status: "You are healthy!" });
-    //     setIsProcessing(false);
-    //     setImageUri(photo.uri); // Update the image URI for display
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //     setIsProcessing(false);
-    //   });
-    // }
-  };
-};
+     // Build the destination URI (path)
+     const destUri = `${folderName}/${fileName}`;
+
+     // You can use destUri to reference the saved image
+     console.log("Image saved at:", destUri);
+   }
+ };
+
 
 
   if (hasPermission === null) {
@@ -80,18 +63,21 @@ const FaceToBMIScreen = () => {
         </Camera>
         <TouchableOpacity
           style={styles.captureButton}
-          onPress={handleTakePicture}
+          onPress={() => {
+            console.log("Capture button pressed");
+            handleTakePicture();
+          }}
         >
-          <Icon name="camera-alt" size={24} color="orange" /> 
+          <Icon name="camera-alt" size={24} color="orange" />
         </TouchableOpacity>
       </View>
 
-      {isProcessing && (
+      {/* {isProcessing && (
         <View style={styles.processingContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
           <Text style={styles.processingText}>Processing your image...</Text>
         </View>
-      )}
+      )} */}
 
       <View style={styles.outputContainer}>
         {imageUri && (

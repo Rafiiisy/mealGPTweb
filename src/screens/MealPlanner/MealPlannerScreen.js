@@ -17,7 +17,7 @@ const MealPlannerScreen = ({navigation}) => {
     };
 
   return (
-    <View style={styles.root}>
+    <>
       <Header onMenuPress={handleMenuPress} navigation={navigation} />
       <ScrollView style={styles.mainContainer}>
         <View style={styles.containerButton}>
@@ -45,7 +45,7 @@ const MealPlannerScreen = ({navigation}) => {
         isVisible={sidebarVisible}
         onClose={() => setSidebarVisible(false)}
       />
-    </View>
+    </>
   );
 };
 
