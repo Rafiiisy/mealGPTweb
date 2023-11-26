@@ -65,7 +65,6 @@ const Landing = ({ navigation }) => {
   );
 };
 
-
 // Example styles that might correspond to some of your CSS
 const styles = StyleSheet.create({
   landing: {
@@ -146,6 +145,5 @@ const styles = StyleSheet.create({
 });
 
 // Remember that you'll need to adjust these styles for your actual design.
-
 
 export default Landing;
