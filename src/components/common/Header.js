@@ -1,8 +1,18 @@
 // Header.js
 import React from "react";
-import { View, Image, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 
-const Header = ({ onMenuPress }) => {
+const Header = ({ onMenuPress, navigation }) => {
+  const handleLogoPress = () => {
+    navigation.navigate("Home"); // Use the correct screen name for your HomeScreen
+  };
+
   return (
     <View style={styles.root}>
       <ImageBackground
@@ -10,11 +20,16 @@ const Header = ({ onMenuPress }) => {
         style={styles.backgroundContainer}
       >
         <View style={styles.container}>
-          <Image
-            source={require("../../assets/images/LOGO.png")} // Replace with your logo image path
-            style={styles.logo}
-            resizeMode="contain"
-          />
+          <TouchableOpacity
+            style={styles.logoContainer}
+            onPress={handleLogoPress}
+          >
+            <Image
+              source={require("../../assets/images/LOGO.png")} // Replace with your logo image path
+              style={styles.logo}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
           <TouchableOpacity onPress={onMenuPress} style={styles.menuButton}>
             <Image
               source={require("../../assets/images/Menu.png")} // Replace with your menu icon path
@@ -49,7 +64,8 @@ const styles = StyleSheet.create({
     flexDirection: "row", // Row direction for items
   },
   root: {
-    flex: 1, // Set the width according to your logo's aspect ratio // Set the height according to your logo's aspect ratio
+    zIndex: 1,
+    // flex: 1, // Set the width according to your logo's aspect ratio // Set the height according to your logo's aspect ratio
   },
   container: {
     flex: 1,
@@ -57,7 +73,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    top: 40 // Set the width according to your logo's aspect ratio // Set the height according to your logo's aspect ratio
+    top: 40, // Set the width according to your logo's aspect ratio // Set the height according to your logo's aspect ratio
+  },
+  logoContainer: {
+    flex: 1,
   },
   logo: {
     width: 150, // Set the width according to your logo's aspect ratio
