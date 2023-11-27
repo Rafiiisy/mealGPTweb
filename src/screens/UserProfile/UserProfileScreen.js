@@ -5,57 +5,71 @@ import styles from "./UserProfileStyles"; // Importing styles from styles.js
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer"; // Import Footer component
 import Sidebar from "../../components/common/Sidebar";
+import { useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db, auth } from '../../config/firebaseConfig'; // Ensure these are correctly imported
 
-const UserDetails = {
-  age: "20",
-  sex: "Male",
-  weight: "70 kg",
-  height: "174 cm",
-  nationality: "Indonesian",
-  location: "Indonesia",
-  fatPercentage: "Bulky",
-  healthConcerns: "None",
-  dailyActivityLevel: "Active",
-  fitnessGoals: "Bulk until 90kg",
-  alcoholConsumption: "No",
-  sleep: "7 hours",
-};
-
-const MealPreferences = {
-  dietaryRestrictions: "Halal",
-  allergies: "None",
-  mealFrequency: "3",
-  snacks: "No",
-  caloricGoal: "3000",
-  buyFood: "Yes",
-  budget: "Rp. 20,000",
-  cook: "Yes",
-  cookingTime: "20",
-  cookingLevel: "2",
-  cuisinePreference: "Chicken",
-};
-
-const WorkoutPreferences = {
-  gymAccess: "Yes",
-  aerobics: "No",
-  calisthenics: "No",
-  equipment: "No",
-  sports: "None",
-  workoutFrequency: "5",
-  preferredTime: "Morning",
-  experience: "10",
-  duration: "90",
-  goal: "Big Build",
-  restrictions: "Deadlifts",
-};
 
 const UserProfileScreen = ({ navigation }) => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const handleMenuPress = () => {
     setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
   };
+  const [userDetails, setUserDetails] = useState({});
+  const [mealPreferences, setMealPreferences] = useState({});
+  const [workoutPreferences, setWorkoutPreferences] = useState({});
+  const [currentUserEmail, setCurrentUserEmail] = useState('');
 
-
+  useEffect(() => {
+    // Function to fetch user data from Firestore
+    const fetchUserData = async () => {
+      if (auth.currentUser) {
+        const userID = auth.currentUser.uid;
+        const userDocRef = doc(db, "userDataCombined", userID);
+        setCurrentUserEmail(auth.currentUser.email);
+        try {
+          const userDocSnap = await getDoc(userDocRef);
+  
+          if (userDocSnap.exists()) {
+            console.log("Fetched user data:", userDocSnap.data()); // Log fetched data
+            
+            // Assuming the structure of your document
+            setUserDetails({
+              age: userDocSnap.data().age,
+              alcoholConsumption: userDocSnap.data().alcoholConsumption,
+              dailyActivity: userDocSnap.data().dailyActivity,
+              fatPercentage: userDocSnap.data().fatPercentage,
+              fitnessGoals: userDocSnap.data().fitnessGoals,
+              healthConcerns: userDocSnap.data().healthConcerns,
+              height: userDocSnap.data().height,
+              weight: userDocSnap.data().weight,
+              location: userDocSnap.data().location,
+              sex: userDocSnap.data().sex,
+              sleep: userDocSnap.data().sleep,
+            });
+            setMealPreferences(userDocSnap.data().mealPreferences || {});
+            setWorkoutPreferences(userDocSnap.data().workoutPreferences || {});
+            
+            // Log state variables after setting them
+            console.log("User Details State:", userDetails);
+            console.log("Meal Preferences State:", mealPreferences);
+            console.log("Workout Preferences State:", workoutPreferences);
+          } else {
+            console.log("No such document!");
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      } else {
+        console.log("User is not logged in");
+        // Handle user not logged in, perhaps navigate to login screen
+        // navigation.navigate('Login');
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+  
   return (
     <View style={styles.root}>
       <ScrollView style={styles.container}>
@@ -68,7 +82,7 @@ const UserProfileScreen = ({ navigation }) => {
           <View style={styles.userInfo}>
             <Text style={styles.name}>Joe Biden</Text>
             <Text style={styles.title}>President</Text>
-            <Text style={styles.email}>joebident@gmail.com</Text>
+            <Text style={styles.email}>{currentUserEmail}</Text>
             <Text style={styles.phone}>(+1)12345678</Text>
           </View>
 
@@ -86,27 +100,30 @@ const UserProfileScreen = ({ navigation }) => {
         </View>
         <Text style={styles.sectionTitle}>Joe's Preferences</Text>
         <View style={styles.sectionContainer}>
+          {/* User Details Section */}
           <View style={styles.preferenceCategory}>
             <Text style={styles.categoryTitle}>User Details</Text>
-            {Object.entries(UserDetails).map(([key, value]) => (
+            {Object.entries(userDetails).map(([key, value]) => (
               <Text key={key} style={styles.detailText}>
                 {`${key.replace(/([A-Z])/g, " $1")}: ${value}`}
               </Text>
             ))}
           </View>
 
+          {/* Meal Preferences Section */}
           <View style={styles.preferenceCategory}>
             <Text style={styles.categoryTitle}>Meal Preferences</Text>
-            {Object.entries(MealPreferences).map(([key, value]) => (
+            {Object.entries(mealPreferences).map(([key, value]) => (
               <Text key={key} style={styles.detailText}>
                 {`${key.replace(/([A-Z])/g, " $1")}: ${value}`}
               </Text>
             ))}
           </View>
 
+          {/* Workout Preferences Section */}
           <View style={styles.preferenceCategory}>
             <Text style={styles.categoryTitle}>Workout Preferences</Text>
-            {Object.entries(WorkoutPreferences).map(([key, value]) => (
+            {Object.entries(workoutPreferences).map(([key, value]) => (
               <Text key={key} style={styles.detailText}>
                 {`${key.replace(/([A-Z])/g, " $1")}: ${value}`}
               </Text>
