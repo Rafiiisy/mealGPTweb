@@ -1,8 +1,7 @@
-// src/config/firebaseConfig.js
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBvR6-1WYyTxD2VQSvjtohLJC2ys1ZrEV8",
   authDomain: "mealgptnew.firebaseapp.com",
@@ -13,6 +12,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
+// Export auth and db
+export const auth = getAuth(firebaseApp);
+export const db = getFirestore(firebaseApp);

@@ -20,7 +20,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="FaceToBMI">
+      <Stack.Navigator initialRouteName="Home">
         {/* Home is the landing page */}
         <Stack.Screen
           name="Home"
