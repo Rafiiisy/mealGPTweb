@@ -27,30 +27,30 @@ const HomeScreen = ({ navigation }) => {
       <Header onMenuPress={handleMenuPress} navigation={navigation} />
       <TouchableOpacity style={styles.LoginButton} onPress={handleLoginPress}>
         <Image
-          source={require("../../assets/Log in.png")}
+          source={require("../../assets/images/Log in.png")}
           style={styles.LoginImage}
         />
       </TouchableOpacity>
       <TouchableOpacity style={styles.SignUpButton} onPress={handleSignupPress}>
         <Image
-          source={require("../../assets/Sign up.png")}
+          source={require("../../assets/images/Sign up.png")}
           style={styles.SignUpImage}
         />
       </TouchableOpacity>
       <ScrollView style={styles.landing}>
         {/* Main Content */}
         <Image
-          source={require("../../assets/MOTO & TABLE.png")}
+          source={require("../../assets/images/MOTO & TABLE.png")}
           style={styles.tableWithBowls}
         />
         <Image
-          source={require("../../assets/Line 2.png")}
+          source={require("../../assets/images/Line 2.png")}
           style={styles.lineUnderHeader}
         />
         {/* ... Other Images and Text */}
         <View style={styles.container2}>
           <Image
-            source={require("../../assets/Group 11.png")}
+            source={require("../../assets/images/Group 11.png")}
             style={styles.MainBody}
           />
           {/* Try Now Button */}
@@ -59,7 +59,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={handleSignupPress}
           >
             <Image
-              source={require("../../assets/TRY NOW.png")}
+              source={require("../../assets/images/TRY NOW.png")}
               style={styles.tryNowImage}
             />
           </TouchableOpacity>
