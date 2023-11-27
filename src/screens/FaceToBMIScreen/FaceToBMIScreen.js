@@ -9,9 +9,13 @@ import {
 } from "react-native";
 import { Camera } from "expo-camera";
 import Icon from 'react-native-vector-icons/MaterialIcons'; // Import the icon component
-
+import Header from "../../components/common/Header";
+import Footer from "../../components/common/Footer";
+import Sidebar from "../../components/common/Sidebar";
+import { useFonts } from "expo-font";
 
 const FaceToBMIScreen = ({ navigation }) => {
+  const [sidebarVisible, setSidebarVisible] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [imageUri, setImageUri] = useState(null);
@@ -19,6 +23,15 @@ const FaceToBMIScreen = ({ navigation }) => {
   const cameraRef = useRef(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  let [fontsLoaded] = useFonts({
+    MADESoulmaze: require("../../assets/fonts/MADE_Soulmaze_PERSONAL_USE.otf"),
+  });
+
+  
+
+  const handleMenuPress = () => {
+    setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility
+  };
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -55,7 +68,19 @@ const FaceToBMIScreen = ({ navigation }) => {
 
   return (
     <>
-      <Text style={{ fontSize: 30, alignSelf: "center" }}>Face to BMI</Text>
+      <Header onMenuPress={handleMenuPress} navigation={navigation} />
+
+      <Text
+        style={{
+          fontSize: 30,
+          alignSelf: "center",
+          color: "#00551D",
+          fontFamily: "MADESoulmaze",
+          top: 30
+        }}
+      >
+        Face to BMI
+      </Text>
       <View style={styles.container}>
         <View style={styles.cameraContainer}>
           <Camera style={styles.camera} type={type} ref={cameraRef}>
@@ -68,16 +93,9 @@ const FaceToBMIScreen = ({ navigation }) => {
               handleTakePicture();
             }}
           >
-            <Icon name="camera-alt" size={24} color="orange" />
+            <Icon name="camera-alt" size={24} color="#00551D" />
           </TouchableOpacity>
         </View>
-
-        {/* {isProcessing && (
-        <View style={styles.processingContainer}>
-          <ActivityIndicator size="large" color="#0000ff" />
-          <Text style={styles.processingText}>Processing your image...</Text>
-        </View>
-      )} */}
 
         <View style={styles.outputContainer}>
           {imageUri && (
@@ -91,6 +109,12 @@ const FaceToBMIScreen = ({ navigation }) => {
           )}
         </View>
       </View>
+      <Footer />
+      <Sidebar
+        navigation={navigation}
+        isVisible={sidebarVisible}
+        onClose={() => setSidebarVisible(false)}
+      />
     </>
   );
 };
@@ -102,18 +126,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between", // Center the containers
     alignItems: "center",
-    paddingHorizontal: 40, // Adjust as needed for spacing from screen edges
-    backgroundColor: "white", // Assuming a white background
+    padding: 20,
+    paddingHorizontal: 60, // Adjust as needed for spacing from screen edges
+    // backgroundColor: "red", // Assuming a white background
+    paddingHorizontal: 200,
   },
   cameraContainer: {
-    width: "40%", // Reduce width for more space between boxes
-    height: "50%", // Set a fixed height
+    width: "30%", // Reduce width for more space between boxes
+    height: "60%", // Set a fixed height
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "orange",
+    backgroundColor: "#00551D",
     borderRadius: 10,
     borderWidth: 10, // Add border
-    borderColor: "orange", // Border color
+    borderColor: "#00551D", // Border color
     marginBottom: 20, // Space for capture button
     overflow: "hidden",
   },
@@ -122,15 +148,15 @@ const styles = StyleSheet.create({
     height: "100%", // Set height to fill the container
   },
   outputContainer: {
-    width: "40%", // Same width as cameraContainer for consistency
-    height: "50%", // Same height as cameraContainer for consistency
-    backgroundColor: "orange",
+    width: "30%", // Same width as cameraContainer for consistency
+    height: "60%", // Same height as cameraContainer for consistency
+    backgroundColor: "#00551D",
     borderRadius: 10,
     borderWidth: 10, // Add border
-    borderColor: "orange", // Border color
+    borderColor: "#00551D", // Border color
     justifyContent: "flex-end", // Align content to the bottom
     overflow: "hidden",
-    bottom: 10 
+    bottom: 10,
   },
   imagePreview: {
     width: "100%",
@@ -149,11 +175,12 @@ const styles = StyleSheet.create({
     color: "white", // Text color white for visibility
   },
   captureButton: {
+    top: 0,
     padding: 15,
     backgroundColor: "#fff", // White background for the button
     borderRadius: 30, // Half of the total width/height to make it circular
     borderWidth: 2, // Width of the border
-    borderColor: "orange", // Color of the border
+    borderColor: "#00551D", // Color of the border
     justifyContent: "center",
     alignItems: "center",
   },

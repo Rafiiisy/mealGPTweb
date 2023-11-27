@@ -5,10 +5,9 @@ import styles from "./UserProfileStyles"; // Importing styles from styles.js
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer"; // Import Footer component
 import Sidebar from "../../components/common/Sidebar";
-import { useEffect } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
-import { db, auth } from '../../config/firebaseConfig'; // Ensure these are correctly imported
-
+import { useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db, auth } from "../../config/firebaseConfig"; // Ensure these are correctly imported
 
 const UserProfileScreen = ({ navigation }) => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -18,7 +17,7 @@ const UserProfileScreen = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState({});
   const [mealPreferences, setMealPreferences] = useState({});
   const [workoutPreferences, setWorkoutPreferences] = useState({});
-  const [currentUserEmail, setCurrentUserEmail] = useState('');
+  const [currentUserEmail, setCurrentUserEmail] = useState("");
 
   useEffect(() => {
     // Function to fetch user data from Firestore
@@ -29,27 +28,27 @@ const UserProfileScreen = ({ navigation }) => {
         setCurrentUserEmail(auth.currentUser.email);
         try {
           const userDocSnap = await getDoc(userDocRef);
-  
+
           if (userDocSnap.exists()) {
             console.log("Fetched user data:", userDocSnap.data()); // Log fetched data
-            
+
             // Assuming the structure of your document
             setUserDetails({
-              age: userDocSnap.data().age,
-              alcoholConsumption: userDocSnap.data().alcoholConsumption,
-              dailyActivity: userDocSnap.data().dailyActivity,
-              fatPercentage: userDocSnap.data().fatPercentage,
-              fitnessGoals: userDocSnap.data().fitnessGoals,
-              healthConcerns: userDocSnap.data().healthConcerns,
-              height: userDocSnap.data().height,
-              weight: userDocSnap.data().weight,
-              location: userDocSnap.data().location,
-              sex: userDocSnap.data().sex,
-              sleep: userDocSnap.data().sleep,
+              Age: userDocSnap.data().age,
+              AlcoholConsumption: userDocSnap.data().alcoholConsumption,
+              DailyActivity: userDocSnap.data().dailyActivity,
+              FatPercentage: userDocSnap.data().fatPercentage,
+              FitnessGoals: userDocSnap.data().fitnessGoals,
+              HealthConcerns: userDocSnap.data().healthConcerns,
+              Height: userDocSnap.data().height,
+              Weight: userDocSnap.data().weight,
+              Location: userDocSnap.data().location,
+              Sex: userDocSnap.data().sex,
+              Sleep: userDocSnap.data().sleep,
             });
             setMealPreferences(userDocSnap.data().mealPreferences || {});
             setWorkoutPreferences(userDocSnap.data().workoutPreferences || {});
-            
+
             // Log state variables after setting them
             console.log("User Details State:", userDetails);
             console.log("Meal Preferences State:", mealPreferences);
@@ -66,10 +65,10 @@ const UserProfileScreen = ({ navigation }) => {
         // navigation.navigate('Login');
       }
     };
-  
+
     fetchUserData();
   }, []);
-  
+
   return (
     <View style={styles.root}>
       <ScrollView style={styles.container}>
@@ -145,6 +144,5 @@ const UserProfileScreen = ({ navigation }) => {
     </View>
   );
 };
-
 
 export default UserProfileScreen;

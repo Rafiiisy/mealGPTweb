@@ -110,6 +110,22 @@ const Sidebar = ({ isVisible, onClose, navigation }) => {
         />
         <Text style={styles.menuItemText}>Settings</Text>
       </TouchableOpacity>
+
+      {/*FaceToBMI */}
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("FaceToBMI"); // Navigate to UserProfileScreen
+          onClose(); // Close the sidebar
+        }}
+        style={styles.menuItem}
+      >
+        <Image
+          source={require("../../assets/icons/icon-camera.png")} // Replace with the path to your profile icon
+          style={styles.icon}
+        />
+        <Text style={styles.menuItemText}>Face to BMI</Text>
+      </TouchableOpacity>
+
       {/*Logout */}
       <TouchableOpacity
         onPress={() => {

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import {
   View,
   Text,
@@ -11,7 +12,9 @@ import {
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import Sidebar from "../../components/common/Sidebar";
-
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../config/firebaseConfig";
+import { auth } from "../../config/firebaseConfig";
 
 const UserPreferenceScreen = ({ navigation }) => {
   // Example of state declaration for age. Add similar states for other fields.
@@ -28,18 +31,68 @@ const UserPreferenceScreen = ({ navigation }) => {
   const [fitnessGoals, setFitnessGoals] = useState("");
   const [alcoholConsumption, setAlcoholConsumption] = useState("");
   const [sleep, setSleep] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
   // Add state declarations for other input fields...
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, set the user to state
+        setCurrentUser(user);
+      } else {
+        // User is signed out, handle accordingly
+        setCurrentUser(null);
+        // Redirect to login page or show message
+        navigation.navigate("Login");
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return unsubscribe;
+  }, [navigation]);
   const handleMenuPress = () => {
     setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
   };
 
-  // Function to handle form submission
-  const handleSubmit = () => {
+  // Assuming you have access to the user's UID somehow, perhaps passed via navigation parameters
+  // or through the auth.currentUser.uid if they are signed in.
 
-        navigation.navigate("UserPreference2");
+  const handleSubmit = async () => {
+    if (!currentUser) {
+      alert("You must be logged in to submit preferences.");
+      return;
+    }
+    try {
+      // Create an object that contains all user preferences
+      const userPreferences = {
+        age,
+        height,
+        weight,
+        sex,
+        nationality,
+        location,
+        fatPercentage,
+        healthConcerns,
+        dailyActivity,
+        fitnessGoals,
+        alcoholConsumption,
+        sleep,
+      };
 
-    // Handle the form submission logic here
-    // For example, send data to backend or display a confirmation message
+      // Assuming `userID` is the authenticated user's UID
+      const userID = auth.currentUser.uid;
+
+      // Reference to the user's document in the 'User Data Combined' collection
+      const userDocRef = doc(db, "userDataCombined", userID);
+
+      // Set the user preferences data in Firestore
+      await setDoc(userDocRef, userPreferences, { merge: true });
+
+      // Navigate to UserPreference2 screen after successful data submission
+      navigation.navigate("UserPreference2");
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      alert("Error saving data: " + error.message);
+    }
   };
 
   return (
@@ -48,7 +101,7 @@ const UserPreferenceScreen = ({ navigation }) => {
 
       <ScrollView style={styles.container}>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Meal Preferences</Text>
+          <Text style={styles.sectionTitle}>User Details</Text>
 
           <Text style={styles.inputTitle}>Age</Text>
           <TextInput
@@ -178,7 +231,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 70,
     padding: 40,
-    paddingTop: 'HEADER_HEIGHT'
+    paddingTop: "HEADER_HEIGHT",
     // Removed 'bottom' property to avoid pushing the ScrollView down
   },
   section: {

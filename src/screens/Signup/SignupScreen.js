@@ -16,7 +16,7 @@ const SignUpScreen = ({ navigation }) => {
   const handleSignUp = () => {
     // Implement your signup logic here
 
-    navigation.navigate("UserPreference");
+    
     // You can perform validation, compare passwords, and other signup-related logic
   };
  const register = async () => {
@@ -26,6 +26,7 @@ const SignUpScreen = ({ navigation }) => {
     }
     try {
       await createUserWithEmailAndPassword(auth, emailPhone, password);
+      navigation.navigate("UserPreference");
       // Navigate to the home screen or show success message
     } catch (error) {
       alert(error.message); // Or handle the error in a more user-friendly way

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { doc, setDoc } from "firebase/firestore";
+import { db, auth } from "../../config/firebaseConfig";
 import {
   View,
   Text,
@@ -11,7 +13,6 @@ import {
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import Sidebar from "../../components/common/Sidebar";
-
 
 const UserPreferenceScreen3 = ({ navigation }) => {
   // Example of state declaration for age. Add similar states for other fields.
@@ -34,11 +35,43 @@ const UserPreferenceScreen3 = ({ navigation }) => {
   };
 
   // Function to handle form submission
-  const handleSubmit = () => {
-            navigation.navigate("Login");
+  const handleSubmit = async () => {
+    if (!auth.currentUser) {
+      alert("You must be logged in to submit preferences.");
+      return;
+    }
+    try {
+      // Create an object that contains all workout preferences
+      const workoutPreferences = {
+        gymAccess,
+        aerobics,
+        calisthenics,
+        equipment,
+        sports,
+        workoutFrequency,
+        preferredTime,
+        experience,
+        duration,
+        workoutGoal,
+        restrictions,
+        // ... other fields
+      };
 
-    // Handle the form submission logic here
-    // For example, send data to backend or display a confirmation message
+      // Assuming `userID` is the authenticated user's UID
+      const userID = auth.currentUser.uid;
+
+      // Reference to the user's document in the 'UserDataCombined' collection
+      const userDocRef = doc(db, "userDataCombined", userID);
+
+      // Set the workout preferences data in Firestore
+      await setDoc(userDocRef, { workoutPreferences }, { merge: true });
+
+      // Navigate to the Login screen or any other screen after successful data submission
+      navigation.navigate("Login");
+    } catch (error) {
+      console.error("Error updating document: ", error);
+      alert("Error saving data: " + error.message);
+    }
   };
 
   return (
@@ -168,7 +201,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 70,
     padding: 40,
-    paddingTop: 'HEADER_HEIGHT'
+    paddingTop: "HEADER_HEIGHT",
     // Removed 'bottom' property to avoid pushing the ScrollView down
   },
   section: {
