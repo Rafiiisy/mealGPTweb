@@ -13,6 +13,14 @@ import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import Sidebar from "../../components/common/Sidebar";
 import { useFonts } from "expo-font";
+import { auth } from "../../config/firebaseConfig";
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
+
 
 const FaceToBMIScreen = ({ navigation }) => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -26,38 +34,73 @@ const FaceToBMIScreen = ({ navigation }) => {
   let [fontsLoaded] = useFonts({
     MADESoulmaze: require("../../assets/fonts/MADE_Soulmaze_PERSONAL_USE.otf"),
   });
-
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
   
 
   const handleMenuPress = () => {
     setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility
   };
   useEffect(() => {
+    const unsubscribeAuth = auth.onAuthStateChanged((user) => {
+      setIsUserAuthenticated(!!user); // !! converts the user object to a boolean
+    });
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     })();
+    return () => {
+      unsubscribeAuth();
+    };
   }, []);
 
-  const handleTakePicture = async () => {
-    if (cameraRef.current) {
-      setIsProcessing(true);
-      const photo = await cameraRef.current.takePictureAsync();
+    const handleTakePicture = async () => {
+      if (!isUserAuthenticated) {
+        // Handle the case where the user is not logged in
+        alert("You must be logged in to use this feature.");
+        return;
+      }
+      if (cameraRef.current) {
+        setIsProcessing("Capturing image...");
+        const photo = await cameraRef.current.takePictureAsync();
 
-      // Define the folder name
-      const folderName = "captured_images";
+        const storage = getStorage();
 
-      // Generate the file name based on the current timestamp
-      const timestamp = new Date().getTime();
-      const fileName = `${timestamp}.jpg`;
+        // Use the user's ID (or any unique identifier) to create a folder structure
+        const userID = auth.currentUser.uid;
+        const folderName = `userImages/${userID}`;
 
-      // Build the destination URI (path)
-      const destUri = `${folderName}/${fileName}`;
+        const photoFileName = photo.uri.split("/").pop(); // Extract filename
+        const storageReference = storageRef(
+          storage,
+          `${folderName}/${photoFileName}`
+        );
 
-      // You can use destUri to reference the saved image
-      console.log("Image saved at:", destUri);
-    }
-  };
+        setIsProcessing("Uploading image...");
+
+        // Convert the photo URI to a blob
+        const response = await fetch(photo.uri);
+        const blob = await response.blob();
+
+        // Upload the blob to Firebase Storage
+        uploadBytes(storageReference, blob)
+          .then((snapshot) => {
+            setIsProcessing("Saving image URL...");
+            return getDownloadURL(snapshot.ref);
+          })
+          .then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            setIsProcessing("Image processed successfully.");
+            setImageUri(photo.uri);
+            // Here you can also save the downloadURL to Firestore as needed
+            // Example: setDoc(doc(db, "users", userId), { photoURL: downloadURL });
+          })
+          .catch((error) => {
+            console.error("Error uploading image: ", error);
+            setIsProcessing("Failed to process image.");
+          });
+      }
+    };
+
 
   if (hasPermission === null) {
     return <View />;
