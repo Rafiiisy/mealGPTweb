@@ -1,33 +1,40 @@
 import React from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
+import { useState } from "react";
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
+import Sidebar from "../../components/common/Sidebar";
 
 const DashboardScreen = () => {
-    const handleMenuPress = () => {
-        console.log("Menu button pressed");
-        // Replace with actual logic to open sidebar
-    };
+    const [sidebarVisible, setSidebarVisible] = useState(false);
 
+    const handleMenuPress = () => {
+        setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility
+    };
+    
     return (
         <>
-            <Header onMenuPress={handleMenuPress} />
-            
+            <Header onMenuPress={handleMenuPress} navigation={navigation} />
+            {/* <View style={{flex: 1, backgroundColor: "blue"}}></View> */}
             <Text style={styles.dashboardText}>DASHBOARD</Text>
                 
-                <View>
+                <View style={styles.mainContainer}>
                     <View style={styles.container1}>
-                        <Image source={require("../../assets/images/Info tab.png")}style={styles.image1}/>
-                        <Image source={require("../../assets/images/MOTO & TABLE.png")}style={styles.image4}/>
+                    <Image source={require("../../assets/images/User info.png")} style={styles.userinfo} />
+                    <Image source={require("../../assets/images/Progress Tab.png")} style={styles.progresstab} />
                     </View>
 
                     <View style={styles.container2}>
-                        <Image source={require("../../assets/images/User info.png")} style={styles.image3}/>
-                        <Image source={require("../../assets/images/Progress Tab.png")} style={styles.image2} />
+                        <Image source={require("../../assets/images/Info tab.png")} style={styles.infotab} />
                     </View>
                 </View>
 
+            <View style={styles.mototext}>
+                <Image source={require("../../assets/images/MOTO & TABLE.png")} style={styles.mototable} />
+            </View>
+
             <Footer />
+            <Sidebar navigation={navigation} isVisible={sidebarVisible} onClose={() => setSidebarVisible(false)}/>
         </>
     );
 };
@@ -38,6 +45,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         padding: 20,
+    },
+    mainContainer: {
+        flexDirection: "row", // Adjusted to column layout
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 20,
         backgroundColor: "#f3f3f3",
     },
     container2: {
@@ -45,7 +58,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         padding: 20,
-        backgroundColor: "#f3f3f3",
     },
     dashboardText: {
         fontFamily: "MADE Soulmaze",
@@ -54,30 +66,36 @@ const styles = StyleSheet.create({
         fontWeight: "regular",
         marginBottom: 20,
     },
-    image1: {
-        width: 100,
-        height: 100,
+    mototext: {
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 20,
+        backgroundColor: "#f3f3f3",  
+    },
+    infotab: {
+        width: 400,
+        height: 400,
         borderRadius: 10,
         resizeMode: "contain", // Maintain aspect ratio and crop as needed
         marginBottom: 10, // Adjust the margin or other styles as needed
     },
-    image2: {
-        width: 100,
-        height: 100,
+    progresstab: {
+        width: 250,
+        height: 250,
         borderRadius: 10,
         resizeMode: "contain", // Maintain aspect ratio and crop as needed
         marginBottom: 10, // Adjust the margin or other styles as needed
     },
-    image3: {
-        width: 100,
-        height: 100,
+    userinfo: {
+        width: 250,
+        height: 250,
         borderRadius: 10,
         resizeMode: "contain", // Maintain aspect ratio and crop as needed
         marginBottom: 10, // Adjust the margin or other styles as needed
     },
-    image4: {
-        width: 100,
-        height: 100,
+    mototable: {
+        width: 200,
+        height: 200,
         borderRadius: 10,
         resizeMode: "contain", // Maintain aspect ratio and crop as needed
         marginBottom: 10, // Adjust the margin or other styles as needed

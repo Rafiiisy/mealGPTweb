@@ -1,9 +1,9 @@
 // App.js
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from './src/screens/Login/LoginScreen';
-import SignUpScreen from './src/screens/Signup/SignupScreen';
+// import React from 'react';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import LoginScreen from './src/screens/Login/LoginScreen';
+// import SignUpScreen from './src/screens/Signup/SignupScreen';
 
 // const Stack = createNativeStackNavigator();
 
