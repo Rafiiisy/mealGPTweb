@@ -13,7 +13,7 @@ import Footer from "../../components/common/Footer";
 import Sidebar from "../../components/common/Sidebar";
 
 
-const UserPreferenceScreen = () => {
+const UserPreferenceScreen = ({ navigation }) => {
   // Example of state declaration for age. Add similar states for other fields.
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [age, setAge] = useState("");
@@ -21,7 +21,13 @@ const UserPreferenceScreen = () => {
   const [weight, setWeight] = useState("");
   const [sex, setSex] = useState("");
   const [nationality, setNationality] = useState("");
-  
+  const [location, setLocation] = useState("");
+  const [fatPercentage, setFatPercentage] = useState("");
+  const [healthConcerns, setHealthConcerns] = useState("");
+  const [dailyActivity, setDailyActivity] = useState("");
+  const [fitnessGoals, setFitnessGoals] = useState("");
+  const [alcoholConsumption, setAlcoholConsumption] = useState("");
+  const [sleep, setSleep] = useState("");
   // Add state declarations for other input fields...
   const handleMenuPress = () => {
     setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
@@ -29,10 +35,12 @@ const UserPreferenceScreen = () => {
 
   // Function to handle form submission
   const handleSubmit = () => {
+
+        navigation.navigate("UserPreference2");
+
     // Handle the form submission logic here
     // For example, send data to backend or display a confirmation message
   };
-  
 
   return (
     <>
@@ -40,7 +48,7 @@ const UserPreferenceScreen = () => {
 
       <ScrollView style={styles.container}>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>User Details</Text>
+          <Text style={styles.sectionTitle}>Meal Preferences</Text>
 
           <Text style={styles.inputTitle}>Age</Text>
           <TextInput
@@ -66,7 +74,7 @@ const UserPreferenceScreen = () => {
             placeholder="Enter your Height"
             keyboardType="numeric"
             value={height}
-            onChangeText={setAge}
+            onChangeText={setHeight}
           />
 
           <Text style={styles.inputTitle}>Weight</Text>
@@ -75,7 +83,7 @@ const UserPreferenceScreen = () => {
             placeholder="Enter your Weight"
             keyboardType="numeric"
             value={weight}
-            onChangeText={setAge}
+            onChangeText={setWeight}
           />
 
           <Text style={styles.inputTitle}>Nationality</Text>
@@ -84,7 +92,7 @@ const UserPreferenceScreen = () => {
             placeholder="Enter your Nationality"
             keyboardType="default"
             value={nationality}
-            onChangeText={setAge}
+            onChangeText={setNationality}
           />
 
           <Text style={styles.inputTitle}>Location</Text>
@@ -92,8 +100,8 @@ const UserPreferenceScreen = () => {
             style={styles.input}
             placeholder="Enter your Location"
             keyboardType="default"
-            value={nationality}
-            onChangeText={setAge}
+            value={location}
+            onChangeText={setLocation}
           />
 
           <Text style={styles.inputTitle}>Fat Percentage</Text>
@@ -101,8 +109,8 @@ const UserPreferenceScreen = () => {
             style={styles.input}
             placeholder="Enter your Fat Percentage"
             keyboardType="numeric"
-            value={nationality}
-            onChangeText={setAge}
+            value={fatPercentage}
+            onChangeText={setFatPercentage}
           />
 
           <Text style={styles.inputTitle}>Health Concerns</Text>
@@ -110,26 +118,44 @@ const UserPreferenceScreen = () => {
             style={styles.input}
             placeholder="Enter your Health Concerns"
             keyboardType="numeric"
-            value={nationality}
-            onChangeText={setAge}
+            value={healthConcerns}
+            onChangeText={setHealthConcerns}
           />
 
           <Text style={styles.inputTitle}>Daily Activity</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter your Health Concerns"
-            keyboardType="numeric"
-            value={nationality}
-            onChangeText={setAge}
+            placeholder="Enter your Daily Activity"
+            keyboardType="default"
+            value={dailyActivity}
+            onChangeText={setDailyActivity}
           />
 
           <Text style={styles.inputTitle}>Fitness Goals</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter your Health Concerns"
+            placeholder="Enter your Fitness Goals"
             keyboardType="numeric"
-            value={nationality}
-            onChangeText={setAge}
+            value={fitnessGoals}
+            onChangeText={setFitnessGoals}
+          />
+
+          <Text style={styles.inputTitle}>Alcohol Consumption</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your Alcohol Consumption"
+            keyboardType="default"
+            value={alcoholConsumption}
+            onChangeText={setAlcoholConsumption}
+          />
+
+          <Text style={styles.inputTitle}>Sleep</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your Sleep"
+            keyboardType="default"
+            value={sleep}
+            onChangeText={setSleep}
           />
 
           {/* Add other input fields for User Details... */}

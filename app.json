@@ -14,6 +14,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "fonts": {
+      "MADE Soulmaze": "./src/assets/fonts/MADE_Soulmaze_PERSONAL_USE.otf"
+    },
     "ios": {
       "supportsTablet": true
     },

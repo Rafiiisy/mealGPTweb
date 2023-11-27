@@ -11,7 +11,7 @@ import { Camera } from "expo-camera";
 import Icon from 'react-native-vector-icons/MaterialIcons'; // Import the icon component
 
 
-const FaceToBMIScreen = () => {
+const FaceToBMIScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [imageUri, setImageUri] = useState(null);
@@ -26,27 +26,25 @@ const FaceToBMIScreen = () => {
     })();
   }, []);
 
- const handleTakePicture = async () => {
-   if (cameraRef.current) {
-     setIsProcessing(true);
-     const photo = await cameraRef.current.takePictureAsync();
+  const handleTakePicture = async () => {
+    if (cameraRef.current) {
+      setIsProcessing(true);
+      const photo = await cameraRef.current.takePictureAsync();
 
-     // Define the folder name
-     const folderName = "captured_images";
+      // Define the folder name
+      const folderName = "captured_images";
 
-     // Generate the file name based on the current timestamp
-     const timestamp = new Date().getTime();
-     const fileName = `${timestamp}.jpg`;
+      // Generate the file name based on the current timestamp
+      const timestamp = new Date().getTime();
+      const fileName = `${timestamp}.jpg`;
 
-     // Build the destination URI (path)
-     const destUri = `${folderName}/${fileName}`;
+      // Build the destination URI (path)
+      const destUri = `${folderName}/${fileName}`;
 
-     // You can use destUri to reference the saved image
-     console.log("Image saved at:", destUri);
-   }
- };
-
-
+      // You can use destUri to reference the saved image
+      console.log("Image saved at:", destUri);
+    }
+  };
 
   if (hasPermission === null) {
     return <View />;
@@ -56,41 +54,44 @@ const FaceToBMIScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.cameraContainer}>
-        <Camera style={styles.camera} type={type} ref={cameraRef}>
-          {/* ...Camera inner components and flip button... */}
-        </Camera>
-        <TouchableOpacity
-          style={styles.captureButton}
-          onPress={() => {
-            console.log("Capture button pressed");
-            handleTakePicture();
-          }}
-        >
-          <Icon name="camera-alt" size={24} color="orange" />
-        </TouchableOpacity>
-      </View>
+    <>
+      <Text style={{ fontSize: 30, alignSelf: "center" }}>Face to BMI</Text>
+      <View style={styles.container}>
+        <View style={styles.cameraContainer}>
+          <Camera style={styles.camera} type={type} ref={cameraRef}>
+            {/* ...Camera inner components and flip button... */}
+          </Camera>
+          <TouchableOpacity
+            style={styles.captureButton}
+            onPress={() => {
+              console.log("Capture button pressed");
+              handleTakePicture();
+            }}
+          >
+            <Icon name="camera-alt" size={24} color="orange" />
+          </TouchableOpacity>
+        </View>
 
-      {/* {isProcessing && (
+        {/* {isProcessing && (
         <View style={styles.processingContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
           <Text style={styles.processingText}>Processing your image...</Text>
         </View>
       )} */}
 
-      <View style={styles.outputContainer}>
-        {imageUri && (
-          <Image source={{ uri: imageUri }} style={styles.imagePreview} />
-        )}
-        {bmiResult && (
-          <>
-            <Text style={styles.bmiText}>BMI: {bmiResult.value}</Text>
-            <Text style={styles.statusText}>{bmiResult.status}</Text>
-          </>
-        )}
+        <View style={styles.outputContainer}>
+          {imageUri && (
+            <Image source={{ uri: imageUri }} style={styles.imagePreview} />
+          )}
+          {bmiResult && (
+            <>
+              <Text style={styles.bmiText}>BMI: {bmiResult.value}</Text>
+              <Text style={styles.statusText}>{bmiResult.status}</Text>
+            </>
+          )}
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 

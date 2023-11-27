@@ -71,11 +71,6 @@ const HomeScreen = ({ navigation }) => {
         </View>
       </ScrollView>
       <Footer />
-      <Sidebar
-        navigation={navigation}
-        isVisible={sidebarVisible}
-        onClose={() => setSidebarVisible(false)}
-      />
     </View>
   );
 };

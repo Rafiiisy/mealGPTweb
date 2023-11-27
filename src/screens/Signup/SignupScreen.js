@@ -5,7 +5,7 @@ import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import Sidebar from "../../components/common/Sidebar";
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   const [emailPhone, setEmailPhone] = useState("");
   const [password, setPassword] = useState("");
   const [reEnterPassword, setReEnterPassword] = useState("");
@@ -13,7 +13,8 @@ const SignUpScreen = () => {
 
   const handleSignUp = () => {
     // Implement your signup logic here
-    console.log("Sign Up pressed");
+
+    navigation.navigate("UserPreference");
     // You can perform validation, compare passwords, and other signup-related logic
   };
 

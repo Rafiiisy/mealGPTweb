@@ -28,13 +28,13 @@ next column, with title Meal Preferences
 };
 
 next column, with title Workout Preferences
-  gym Access: (input: Yes/No)
+  gymAccess: (input: Yes/No)
   aerobics: (input: Yes/No)
   calisthenics: (input: Yes/No)
   equipment: (input: Yes/No)
   sports: (input: Text)
-  workout Frequency: (input: Number)
-  preferred Time: (input: Text)
+  workoutFrequency: (input: Number)
+  preferredTime: (input: Text)
   experience: (input: Number)
   duration: (input: Number)
   goal: (input: Text)
