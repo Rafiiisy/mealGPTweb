@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
-import Sidebar from "../../components/common/Sidebar";
+
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebaseConfig";
 
 const SignUpScreen = ({ navigation }) => {
   const [emailPhone, setEmailPhone] = useState("");
@@ -16,6 +18,31 @@ const SignUpScreen = ({ navigation }) => {
 
     navigation.navigate("UserPreference");
     // You can perform validation, compare passwords, and other signup-related logic
+  };
+ const register = async () => {
+    if (password !== reEnterPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    try {
+      await createUserWithEmailAndPassword(auth, emailPhone, password);
+      // Navigate to the home screen or show success message
+    } catch (error) {
+      alert(error.message); // Or handle the error in a more user-friendly way
+      console.log(error.message);
+    }
+  };
+
+  const emailHandler = (newText) => {
+    setEmailPhone(newText);
+  };
+
+  const passwordHandler = (newText) => {
+    setPassword(newText);
+  };
+
+  const confirmPasswordHandler = (newText) => {
+    setReEnterPassword(newText);
   };
 
   const handleMenuPress = () => {
@@ -33,7 +60,7 @@ const SignUpScreen = ({ navigation }) => {
               style={styles.input}
               placeholder="Email/phone"
               value={emailPhone}
-              onChangeText={(text) => setEmailPhone(text)}
+              onChangeText={emailHandler}
             />
           </View>
 
@@ -43,7 +70,7 @@ const SignUpScreen = ({ navigation }) => {
               placeholder="Password"
               secureTextEntry
               value={password}
-              onChangeText={(text) => setPassword(text)}
+              onChangeText={passwordHandler}
             />
           </View>
 
@@ -53,26 +80,18 @@ const SignUpScreen = ({ navigation }) => {
               placeholder="Re-enter Password"
               secureTextEntry
               value={reEnterPassword}
-              onChangeText={(text) => setReEnterPassword(text)}
+              onChangeText={confirmPasswordHandler}
             />
           </View>
 
           <View style={styles.centeredButtonContainer}>
-            <TouchableOpacity
-              style={styles.signUpButton}
-              onPress={handleSignUp}
-            >
+            <TouchableOpacity style={styles.signUpButton} onPress={register}>
               <Text style={styles.signUpButtonText}>Sign Up</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
       <Footer />
-      {/* <Sidebar
-        navigation={navigation}
-        isVisible={sidebarVisible}
-        onClose={() => setSidebarVisible(false)}
-      /> */}
     </>
   );
 };

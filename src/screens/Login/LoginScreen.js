@@ -5,12 +5,22 @@ import { View, Text, TextInput, ImageBackground, TouchableOpacity, StyleSheet } 
 // import backgroundImage from '../../assets/images/Header LoginSignup.png'; // Adjust the path accordingly
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
-import Sidebar from "../../components/common/Sidebar";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebaseConfig";
 
 const LoginScreen = ({ navigation }) => {
     const [emailPhone, setEmailPhone] = useState('');
     const [password, setPassword] = useState('');
     const [sidebarVisible, setSidebarVisible] = useState(false);
+
+    const login = async () => {
+      try {
+        await signInWithEmailAndPassword(auth, emailPhone, password);
+        console.log(auth.currentUser);
+      } catch (error) {
+        alert(error);
+      }
+    };
 
     const handleMenuPress = () => {
       setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
@@ -58,10 +68,7 @@ const LoginScreen = ({ navigation }) => {
             </View>
 
             <View style={styles.centeredButtonContainer}>
-              <TouchableOpacity
-                style={styles.loginButton}
-                onPress={handleLogin}
-              >
+              <TouchableOpacity style={styles.loginButton} onPress={login}>
                 <Text style={styles.loginButtonText}>Login</Text>
               </TouchableOpacity>
             </View>
