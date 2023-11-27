@@ -55,49 +55,39 @@ const FaceToBMIScreen = ({ navigation }) => {
 
     const handleTakePicture = async () => {
       if (!isUserAuthenticated) {
-        // Handle the case where the user is not logged in
         alert("You must be logged in to use this feature.");
         return;
       }
+
       if (cameraRef.current) {
         setIsProcessing("Capturing image...");
         const photo = await cameraRef.current.takePictureAsync();
+        setImageUri(photo.uri);
 
-        const storage = getStorage();
+        // Create a FormData object to send the image to the Flask server
+        const formData = new FormData();
+        formData.append("image", {
+          uri: photo.uri,
+          type: "image/jpeg",
+          name: "photo.jpg",
+        });
 
-        // Use the user's ID (or any unique identifier) to create a folder structure
-        const userID = auth.currentUser.uid;
-        const folderName = `userImages/${userID}`;
-
-        const photoFileName = photo.uri.split("/").pop(); // Extract filename
-        const storageReference = storageRef(
-          storage,
-          `${folderName}/${photoFileName}`
-        );
-
-        setIsProcessing("Uploading image...");
-
-        // Convert the photo URI to a blob
-        const response = await fetch(photo.uri);
-        const blob = await response.blob();
-
-        // Upload the blob to Firebase Storage
-        uploadBytes(storageReference, blob)
-          .then((snapshot) => {
-            setIsProcessing("Saving image URL...");
-            return getDownloadURL(snapshot.ref);
-          })
-          .then((downloadURL) => {
-            console.log("File available at", downloadURL);
-            setIsProcessing("Image processed successfully.");
-            setImageUri(photo.uri);
-            // Here you can also save the downloadURL to Firestore as needed
-            // Example: setDoc(doc(db, "users", userId), { photoURL: downloadURL });
-          })
-          .catch((error) => {
-            console.error("Error uploading image: ", error);
-            setIsProcessing("Failed to process image.");
+        try {
+          const response = await fetch("http://0.0.0.0:5000/predict_bmi", {
+            method: "POST",
+            body: formData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
           });
+
+          const result = await response.json();
+          setBmiResult(result.bmi);
+          setIsProcessing(false);
+        } catch (error) {
+          console.error("Error processing image: ", error);
+          setIsProcessing("Failed to process image.");
+        }
       }
     };
 
