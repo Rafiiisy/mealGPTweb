@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { doc, setDoc } from "firebase/firestore";
+import { db, auth } from "../../config/firebaseConfig"; // Ensure these are correctly imported
 import {
   View,
   Text,
@@ -34,11 +36,44 @@ const UserPreferenceScreen2 = ({ navigation }) => {
   };
 
   // Function to handle form submission
-  const handleSubmit = () => {
-            navigation.navigate("UserPreference3");
+  const handleSubmit = async () => {
+    if (!auth.currentUser) {
+      alert('You must be logged in to update preferences.');
+      return;
+    }
+    try {
+      // Assuming `userID` is the authenticated user's UID
+      const userID = auth.currentUser.uid;
 
-    // Handle the form submission logic here
-    // For example, send data to backend or display a confirmation message
+      // Create an object with the additional preferences
+      const additionalPreferences = {
+        dietaryRestrictions,
+        allergies,
+        mealFrequency,
+        snacks,
+        caloricGoal,
+        buyFood,
+        budget,
+        cook,
+        cookingTime,
+        cookingLevel,
+        cuisinePreference,
+        // ... other fields
+      };
+
+      // Reference to the same document in the 'UserDataCombined' collection
+      const userDocRef = doc(db, "userDataCombined", userID);
+
+      // Update the document with additional preferences
+      await setDoc(userDocRef, { mealPreferences: additionalPreferences }, { merge: true });
+
+      // Navigate to UserPreference3 screen after successful data submission
+      navigation.navigate("UserPreference3");
+
+    } catch (error) {
+      console.error("Error updating document: ", error);
+      alert("Error saving data: " + error.message);
+    }
   };
 
   return (

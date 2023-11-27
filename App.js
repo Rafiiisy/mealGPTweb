@@ -66,7 +66,7 @@ const App = () => {
 
         {/* Accessible from Sidebar */}
         <Stack.Screen name="UserProfile" component={UserProfileScreen} />
-        <Stack.Screen name="MealPlan" component={MealPlanScreen} />
+        <Stack.Screen name="MealPlan" component={MealPlanScreen} /> 
         <Stack.Screen name="WorkoutPlan" component={WorkoutPlanScreen} />
         <Stack.Screen name="MealPlanner" component={MealPlannerScreen} />
         <Stack.Screen name="FaceToBMI" component={FaceToBMIScreen} />

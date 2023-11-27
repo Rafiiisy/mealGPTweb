@@ -5,6 +5,9 @@ import styles from "./UserProfileStyles"; // Importing styles from styles.js
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer"; // Import Footer component
 import Sidebar from "../../components/common/Sidebar";
+import { useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../../config/firebaseConfig"; // Make sure the path is correct
 
 const UserDetails = {
   age: "20",

@@ -19,19 +19,22 @@ const SignUpScreen = ({ navigation }) => {
     navigation.navigate("UserPreference");
     // You can perform validation, compare passwords, and other signup-related logic
   };
- const register = async () => {
+  const register = async () => {
     if (password !== reEnterPassword) {
       alert("Passwords do not match");
       return;
     }
     try {
       await createUserWithEmailAndPassword(auth, emailPhone, password);
-      // Navigate to the home screen or show success message
+      console.log("User registered successfully");
+      // Navigate to the UserPreferenceScreen after successful sign-up
+      navigation.navigate("UserPreference");
     } catch (error) {
       alert(error.message); // Or handle the error in a more user-friendly way
       console.log(error.message);
     }
   };
+  
 
   const emailHandler = (newText) => {
     setEmailPhone(newText);

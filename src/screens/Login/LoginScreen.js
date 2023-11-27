@@ -17,6 +17,7 @@ const LoginScreen = ({ navigation }) => {
       try {
         await signInWithEmailAndPassword(auth, emailPhone, password);
         console.log(auth.currentUser);
+        navigation.navigate("Dashboard");
       } catch (error) {
         alert(error);
       }
@@ -24,11 +25,6 @@ const LoginScreen = ({ navigation }) => {
 
     const handleMenuPress = () => {
       setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility // Replace with actual logic to open sidebar
-    };
-    const handleLogin = () => {
-        // Implement your login logic here
-        
-        navigation.navigate("Dashboard");
     };
     const handleForgotPassword = () => {
         // Implement your logic for handling forgot password
